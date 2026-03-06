@@ -15,4 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.stock > 0 ORDER BY p.price ASC")
     List<Product> findAvailableProducts();
+    @Query("SELECT oi.product FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC")
+    List<Product> findTop5ByMostSold();
 }
