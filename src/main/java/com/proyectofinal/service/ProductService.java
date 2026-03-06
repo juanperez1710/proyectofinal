@@ -28,6 +28,10 @@ public class ProductService {
     }
 
     public Product create(ProductRequest request) {
+        if (repository.existsByNameIgnoreCase(request.name())) {
+            throw new IllegalArgumentException("El producto con nombre '" + request.name() + "' ya existe");
+        }
+
         Product product = new Product();
         product.setName(request.name());
         product.setPrice(request.price());
@@ -39,6 +43,10 @@ public class ProductService {
 
     public Product update(Long id, ProductRequest request) {
         Product product = findById(id);
+        if (!product.getName().equalsIgnoreCase(request.name()) &&
+                repository.existsByNameIgnoreCase(request.name())) {
+            throw new IllegalArgumentException("El producto con nombre '" + request.name() + "' ya existe");
+        }
         product.setName(request.name());
         product.setPrice(request.price());
         product.setDescription(request.description());

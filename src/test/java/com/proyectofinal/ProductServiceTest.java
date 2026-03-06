@@ -88,7 +88,7 @@ class ProductServiceTest {
 
             assertThatThrownBy(() -> service.create(request))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("Ya existe");
+                    .hasMessageContaining("ya existe");
         }
     }
     @Nested
